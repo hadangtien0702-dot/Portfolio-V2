@@ -5,7 +5,7 @@
  */
 
 function initNav() {
-  // Smooth scroll
+  // Smooth scroll — works for both header nav AND dock nav
   document.querySelectorAll('.nav-link').forEach(link => {
     link.addEventListener('click', e => {
       e.preventDefault();
@@ -14,7 +14,7 @@ function initNav() {
     });
   });
 
-  // Active nav highlight via IntersectionObserver
+  // Active highlight — watches sections, updates ALL .nav-link elements
   const sections = document.querySelectorAll('section[id]');
   const navLinks = document.querySelectorAll('.nav-link');
 
@@ -27,8 +27,10 @@ function initNav() {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         navLinks.forEach(link => link.classList.remove('active'));
-        const active = document.querySelector(`.nav-link[href="#${entry.target.id}"]`);
-        if (active) active.classList.add('active');
+        // Select matching links from BOTH header nav and dock nav
+        document.querySelectorAll(`.nav-link[href="#${entry.target.id}"]`).forEach(link => {
+          link.classList.add('active');
+        });
       }
     });
   }, { threshold: 0.4 });

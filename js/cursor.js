@@ -38,16 +38,21 @@ function initScrollEffects() {
   const cursorDot = document.getElementById('cursor-dot');
   const backBtn   = document.getElementById('back-to-top');
   const section2  = document.getElementById('case-study');
-  let scrollTimer = null;
+  const siteHeader = document.getElementById('site-header');
+  const dockNav    = document.getElementById('dock-nav');
+  let scrollTimer  = null;
 
   window.addEventListener('scroll', () => {
     const scrollY = window.scrollY;
-    const header  = document.querySelector('header');
+    const isDocked = scrollY > 100;
 
-    // Dock header when scrolled past 80px (gives breathing room before docking)
-    if (header) header.classList.toggle('docked', scrollY > 80);
+    // ── Top header: fade out when scrolled ──
+    if (siteHeader) siteHeader.classList.toggle('hidden', isDocked);
 
-    // Cursor glow: appear while scrolling, fade 800ms after stop
+    // ── Dock pill: slide up when scrolled ──
+    if (dockNav) dockNav.classList.toggle('visible', isDocked);
+
+    // ── Cursor glow ──
     if (cursorDot) {
       cursorDot.classList.add('visible');
       document.body.classList.add('is-scrolling');
@@ -58,7 +63,7 @@ function initScrollEffects() {
       }, 800);
     }
 
-    // Back to top button: show when past section 2
+    // ── Back to top ──
     if (backBtn && section2) {
       backBtn.classList.toggle('visible', scrollY >= section2.offsetTop - 200);
     }

@@ -1,7 +1,6 @@
-<header>
+<header id="site-header">
   <nav>
     <div class="logo">V2</div>
-
     <ul id="nav-menu">
       <li><a href="#hero"            class="nav-link active">Overview</a></li>
       <li><a href="#case-study"      class="nav-link">Case Study</a></li>
@@ -9,12 +8,19 @@
       <li><a href="#video-system"    class="nav-link">Video System</a></li>
       <li><a href="#creative-works"  class="nav-link">Creative Works</a></li>
     </ul>
-
-    <!-- Hamburger (visible on mobile only) -->
     <button class="menu-toggle" id="menu-toggle" aria-label="Toggle menu" aria-expanded="false">
-      <span></span>
-      <span></span>
-      <span></span>
+      <span></span><span></span><span></span>
     </button>
   </nav>
 </header>
+
+<!-- Dock pill (bottom) — separate element, fades in on scroll -->
+<nav class="dock" id="dock-nav" aria-hidden="true">
+  <ul>
+    <li><a href="#hero"            class="nav-link">Overview</a></li>
+    <li><a href="#case-study"      class="nav-link">Case Study</a></li>
+    <li><a href="#growth-timeline" class="nav-link">Growth Timeline</a></li>
+    <li><a href="#video-system"    class="nav-link">Video System</a></li>
+    <li><a href="#creative-works"  class="nav-link">Creative Works</a></li>
+  </ul>
+</nav>
