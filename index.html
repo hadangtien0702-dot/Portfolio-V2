@@ -8,6 +8,14 @@
     <meta name="description" content="My Personal Portfolio - A modern and sophisticated website design." />
   </head>
   <body>
+    <!-- Custom cursor -->
+    <div class="cursor-dot" id="cursor-dot"></div>
+
+    <!-- Back to top -->
+    <button id="back-to-top" aria-label="Back to top">
+      <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
+    </button>
+
     <div id="header-root"></div>
     <main id="main-root"></main>
     <div id="footer-root"></div>
@@ -58,11 +66,52 @@
         }, { threshold: 0.4 });
         sections.forEach(s => observer.observe(s));
 
-        // Sticky header on scroll
+        // ── Sticky header ──
+        const header = document.querySelector('header');
+
+        // ── Custom cursor ──
+        const cursorDot = document.getElementById('cursor-dot');
+        let cursorX = 0, cursorY = 0;
+        let scrollTimer = null;
+
+        document.addEventListener('mousemove', e => {
+          cursorX = e.clientX;
+          cursorY = e.clientY;
+          cursorDot.style.left = cursorX + 'px';
+          cursorDot.style.top  = cursorY + 'px';
+        });
+
+        document.addEventListener('mousedown', () => cursorDot.classList.add('clicking'));
+        document.addEventListener('mouseup',   () => cursorDot.classList.remove('clicking'));
+
+        // ── Back to Top ──
+        const backBtn = document.getElementById('back-to-top');
+        const section2 = document.getElementById('case-study');
+
+        backBtn.addEventListener('click', () => {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // ── Single scroll listener (all features) ──
         window.addEventListener('scroll', () => {
-          const header = document.querySelector('header');
-          if (header) {
-            header.classList.toggle('scrolled', window.scrollY > 30);
+          const scrollY = window.scrollY;
+
+          // Sticky header
+          if (header) header.classList.toggle('scrolled', scrollY > 30);
+
+          // Custom cursor: show when scrolling, hide when stopped
+          cursorDot.classList.add('visible');
+          document.body.classList.add('is-scrolling');
+          clearTimeout(scrollTimer);
+          scrollTimer = setTimeout(() => {
+            cursorDot.classList.remove('visible');
+            document.body.classList.remove('is-scrolling');
+          }, 800);
+
+          // Back to top: show when reaching section 2
+          if (section2) {
+            const show = scrollY >= section2.offsetTop - 200;
+            backBtn.classList.toggle('visible', show);
           }
         });
       }
