@@ -81,13 +81,33 @@
   pointer-events: none;
   z-index: 9999;
   transform: translate(-50%, -50%);
-  transition: opacity 0.3s ease, transform 0.15s ease;
+  transition: opacity 0.3s ease, transform 0.15s ease, box-shadow 0.3s ease;
   opacity: 0;
-  mix-blend-mode: difference;
+  mix-blend-mode: normal;
 }
 
 .cursor-dot.visible {
   opacity: 1;
+  box-shadow:
+    0 0 8px 2px rgba(237, 120, 66, 0.6),
+    0 0 20px 6px rgba(237, 120, 66, 0.25),
+    0 0 40px 12px rgba(237, 120, 66, 0.1);
+  animation: cursor-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes cursor-pulse {
+  0%, 100% {
+    box-shadow:
+      0 0 8px 2px rgba(237, 120, 66, 0.6),
+      0 0 20px 6px rgba(237, 120, 66, 0.25),
+      0 0 40px 12px rgba(237, 120, 66, 0.1);
+  }
+  50% {
+    box-shadow:
+      0 0 12px 4px rgba(237, 120, 66, 0.8),
+      0 0 30px 10px rgba(237, 120, 66, 0.35),
+      0 0 55px 18px rgba(237, 120, 66, 0.15);
+  }
 }
 
 .cursor-dot.clicking {
