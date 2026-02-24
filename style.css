@@ -858,7 +858,7 @@ footer {
   --my: 50%;
   position: fixed;
   inset: 0;
-  z-index: 0;
+  z-index: -1;           /* Below everything */
   pointer-events: none;
   /* Grid lines */
   background-image:
@@ -878,23 +878,17 @@ footer {
   );
 }
 
-/* Subtle overall grid fade on body (always visible, dimmer) */
+/* Subtle overall grid (always visible, very dim) */
 body::before {
   content: '';
   position: fixed;
   inset: 0;
-  z-index: 0;
+  z-index: -1;           /* Below all content */
   pointer-events: none;
   background-image:
     linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
   background-size: 60px 60px;
-}
-
-/* Make sure page content sits above the grid */
-header, .dock, #cursor-dot, #back-to-top, #main-root, #header-root, #footer-root {
-  position: relative;
-  z-index: 1;
 }
 
 /* ════════════════════════════════════════
