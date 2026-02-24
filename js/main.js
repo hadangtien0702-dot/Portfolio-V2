@@ -21,4 +21,9 @@ window.addEventListener('DOMContentLoaded', async () => {
   initBackToTop();            // defined in cursor.js
   initScrollEffects();        // defined in cursor.js
   initGridBackground();       // defined in effects.js
+
+  // Step 4: Init animations
+  initHeroAnimation();        // defined in animations.js — hero stagger
+  initScrollAnimations();     // defined in animations.js — fade-up on scroll
+  initSectionReveal();        // defined in animations.js — section entrance
 });

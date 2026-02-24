@@ -1,0 +1,77 @@
+/**
+ * animations.js
+ * Scroll-triggered entrance animations using IntersectionObserver.
+ * Hero section gets staggered load animation on DOMContentLoaded.
+ * All animations use only transform + opacity (GPU-accelerated).
+ */
+
+/* ─────────────────────────────────────────
+   HERO: staggered entrance on page load
+───────────────────────────────────────── */
+function initHeroAnimation() {
+  const targets = [
+    { sel: '.hero-eyebrow',    delay: 0 },
+    { sel: '.hero-title',      delay: 80 },
+    { sel: '.hero-tags',       delay: 180 },
+    { sel: '.hero-center',     delay: 120 },
+    { sel: '.hero-tagline',    delay: 160 },
+    { sel: '.hero-sub',        delay: 240 },
+    { sel: '.cta',             delay: 320 },
+  ];
+
+  targets.forEach(({ sel, delay }) => {
+    const el = document.querySelector(sel);
+    if (!el) return;
+    el.classList.add('anim-ready');          // set initial hidden state
+    setTimeout(() => el.classList.add('anim-in'), delay + 100);
+  });
+}
+
+/* ─────────────────────────────────────────
+   SCROLL: fade-up entrance for sections
+───────────────────────────────────────── */
+function initScrollAnimations() {
+  // Elements to watch — add anim-ready class to hide initially
+  const selectors = [
+    '.section-page h2',
+    '.section-page p',
+    '.section-page .coming-soon',
+  ];
+
+  const elements = document.querySelectorAll(selectors.join(','));
+  if (!elements.length) return;
+
+  elements.forEach(el => el.classList.add('anim-ready'));
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('anim-in');
+        observer.unobserve(entry.target); // fire once
+      }
+    });
+  }, {
+    threshold: 0.15,
+    rootMargin: '0px 0px -40px 0px',
+  });
+
+  elements.forEach(el => observer.observe(el));
+}
+
+/* ─────────────────────────────────────────
+   SECTION REVEAL: entire sections fade in
+───────────────────────────────────────── */
+function initSectionReveal() {
+  const sections = document.querySelectorAll('section[id]:not(#hero)');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      entry.target.classList.toggle('section-visible', entry.isIntersecting);
+    });
+  }, { threshold: 0.08 });
+
+  sections.forEach(s => {
+    s.classList.add('section-hidden');
+    observer.observe(s);
+  });
+}

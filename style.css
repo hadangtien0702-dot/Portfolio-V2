@@ -162,6 +162,69 @@ body.is-scrolling {
   stroke-linejoin: round;
 }
 
+/* ════════════════════════════════════════
+   ANIMATION SYSTEM
+   All animations use ONLY transform + opacity
+   → GPU-accelerated, zero layout cost, 60fps
+════════════════════════════════════════ */
+
+/* ── Keyframes ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ── Initial hidden state (set via JS before animation fires) ── */
+.anim-ready {
+  opacity: 0;
+  transform: translateY(20px);
+  will-change: transform, opacity;
+}
+
+/* ── Animate in (JS adds this class) ── */
+.anim-in {
+  animation: fadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: transform, opacity;
+}
+
+/* ── Section reveal on scroll ── */
+.section-hidden {
+  opacity: 0;
+  transform: translateY(32px);
+  transition:
+    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
+}
+
+.section-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Smooth scrolling globally ── */
+html {
+  scroll-behavior: smooth;
+}
+
+/* ── will-change hints for fixed animated elements ── */
+header {
+  will-change: opacity, transform;
+}
+
+.dock {
+  will-change: opacity, transform;
+}
+
+#cursor-dot {
+  will-change: transform, opacity;
+}
+
 * {
   margin: 0;
   padding: 0;
