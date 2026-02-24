@@ -14,13 +14,44 @@
   </nav>
 </header>
 
-<!-- Dock pill (bottom) — separate element, fades in on scroll -->
+<!-- Dock pill (bottom) — icon + tooltip on hover -->
 <nav class="dock" id="dock-nav" aria-hidden="true">
   <ul>
-    <li><a href="#hero"            class="nav-link">Overview</a></li>
-    <li><a href="#case-study"      class="nav-link">Case Study</a></li>
-    <li><a href="#growth-timeline" class="nav-link">Growth Timeline</a></li>
-    <li><a href="#video-system"    class="nav-link">Video System</a></li>
-    <li><a href="#creative-works"  class="nav-link">Creative Works</a></li>
+
+    <!-- Overview -->
+    <li>
+      <a href="#hero" class="nav-link dock-item" data-tooltip="Overview">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+      </a>
+    </li>
+
+    <!-- Case Study -->
+    <li>
+      <a href="#case-study" class="nav-link dock-item" data-tooltip="Case Study">
+        <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+      </a>
+    </li>
+
+    <!-- Growth Timeline -->
+    <li>
+      <a href="#growth-timeline" class="nav-link dock-item" data-tooltip="Growth Timeline">
+        <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      </a>
+    </li>
+
+    <!-- Video System -->
+    <li>
+      <a href="#video-system" class="nav-link dock-item" data-tooltip="Video System">
+        <svg viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+      </a>
+    </li>
+
+    <!-- Creative Works -->
+    <li>
+      <a href="#creative-works" class="nav-link dock-item" data-tooltip="Creative Works">
+        <svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+      </a>
+    </li>
+
   </ul>
 </nav>
