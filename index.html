@@ -15,19 +15,50 @@
     <script>
       async function loadComponent(id, path) {
         try {
-          const response = await fetch(path);
-          const data = await response.text();
-          document.getElementById(id).innerHTML = data;
-        } catch (error) {
-          console.error(`Error loading ${path}:`, error);
+          const res = await fetch(path);
+          const html = await res.text();
+          document.getElementById(id).insertAdjacentHTML('beforeend', html);
+        } catch (e) {
+          console.error(`Error loading ${path}:`, e);
         }
       }
 
-      window.addEventListener('DOMContentLoaded', () => {
-        loadComponent('header-root', 'components/header.html');
-        loadComponent('main-root', 'components/hero.html');
-        loadComponent('footer-root', 'components/footer.html');
-      });
+      async function init() {
+        await loadComponent('header-root', 'components/header.html');
+        await Promise.all([
+          loadComponent('main-root', 'components/hero.html'),
+          loadComponent('main-root', 'components/case-study.html'),
+          loadComponent('main-root', 'components/growth-timeline.html'),
+          loadComponent('main-root', 'components/video-system.html'),
+          loadComponent('main-root', 'components/creative-works.html'),
+        ]);
+        await loadComponent('footer-root', 'components/footer.html');
+
+        // Smooth scroll for nav links
+        document.querySelectorAll('.nav-link').forEach(link => {
+          link.addEventListener('click', e => {
+            e.preventDefault();
+            const target = document.querySelector(link.getAttribute('href'));
+            if (target) target.scrollIntoView({ behavior: 'smooth' });
+          });
+        });
+
+        // Active nav highlight on scroll
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              navLinks.forEach(link => link.classList.remove('active'));
+              const active = document.querySelector(`.nav-link[href="#${entry.target.id}"]`);
+              if (active) active.classList.add('active');
+            }
+          });
+        }, { threshold: 0.4 });
+        sections.forEach(s => observer.observe(s));
+      }
+
+      window.addEventListener('DOMContentLoaded', init);
     </script>
   </body>
 </html>
