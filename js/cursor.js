@@ -44,8 +44,8 @@ function initScrollEffects() {
     const scrollY = window.scrollY;
     const header  = document.querySelector('header');
 
-    // Sticky header
-    if (header) header.classList.toggle('scrolled', scrollY > 30);
+    // Dock header when scrolled past 80px (gives breathing room before docking)
+    if (header) header.classList.toggle('docked', scrollY > 80);
 
     // Cursor glow: appear while scrolling, fade 800ms after stop
     if (cursorDot) {
