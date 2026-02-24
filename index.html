@@ -6,8 +6,11 @@
     <title>Portfolio V2 | Modern Design</title>
     <link rel="stylesheet" href="style.css" />
     <meta
+      id="meta-desc"
       name="description"
       content="Portfolio cá nhân của tôi - Một trang web được thiết kế hiện đại và tinh tế."
+      data-en="My Personal Portfolio - A modern and sophisticated website design."
+      data-vi="Portfolio cá nhân của tôi - Một trang web được thiết kế hiện đại và tinh tế."
     />
   </head>
   <body>
@@ -15,26 +18,58 @@
       <nav>
         <div class="logo">V2</div>
         <ul>
-          <li><a href="#home">Trang chủ</a></li>
-          <li><a href="#about">Giới thiệu</a></li>
-          <li><a href="#projects">Dự án</a></li>
-          <li><a href="#contact">Liên hệ</a></li>
+          <li><a href="#home" data-en="Home" data-vi="Trang chủ">Trang chủ</a></li>
+          <li><a href="#about" data-en="About" data-vi="Giới thiệu">Giới thiệu</a></li>
+          <li><a href="#projects" data-en="Projects" data-vi="Dự án">Dự án</a></li>
+          <li><a href="#contact" data-en="Contact" data-vi="Liên hệ">Liên hệ</a></li>
         </ul>
+        <div class="lang-switch">
+          <button id="lang-btn">EN</button>
+        </div>
       </nav>
     </header>
 
     <main>
       <section id="home" class="hero">
-        <h1>
+        <h1 data-en="Welcome to Portfolio V2" data-vi="Chào mừng bạn đến với Portfolio V2">
           Chào mừng bạn đến với <span class="highlight">Portfolio V2</span>
         </h1>
-        <p>Khám phá không gian sáng tạo và các sản phẩm của tôi.</p>
-        <button class="cta">Bắt đầu ngay</button>
+        <p data-en="Explore my creative space and latest works." data-vi="Khám phá không gian sáng tạo và các sản phẩm của tôi.">Khám phá không gian sáng tạo và các sản phẩm của tôi.</p>
+        <button class="cta" data-en="Get Started" data-vi="Bắt đầu ngay">Bắt đầu ngay</button>
       </section>
     </main>
 
     <footer>
-      <p>&copy; 2024 Portfolio V2. Thiết kế bởi Antigravity.</p>
+      <p>&copy; 2024 Portfolio V2. <span data-en="Designed by Antigravity." data-vi="Thiết kế bởi Antigravity.">Thiết kế bởi Antigravity.</span></p>
     </footer>
+
+    <script>
+      const langBtn = document.getElementById('lang-btn');
+      let currentLang = 'vi';
+
+      langBtn.addEventListener('click', () => {
+        currentLang = currentLang === 'vi' ? 'en' : 'vi';
+        document.documentElement.lang = currentLang;
+        langBtn.textContent = currentLang === 'vi' ? 'EN' : 'VI';
+
+        document.querySelectorAll('[data-en]').forEach(el => {
+          if (el.tagName === 'META') {
+            el.content = el.getAttribute(`data-${currentLang}`);
+          } else if (el.classList.contains('highlight')) {
+             // Handle highlight if needed, or just keep it simple
+          } else {
+            // Check if element has a span with highlight to preserve structure
+            const highlight = el.querySelector('.highlight');
+            if (highlight) {
+                const fullText = el.getAttribute(`data-${currentLang}`);
+                const highlightText = "Portfolio V2"; // Fixed for this specific case
+                el.innerHTML = fullText.replace(highlightText, `<span class="highlight">${highlightText}</span>`);
+            } else {
+                el.textContent = el.getAttribute(`data-${currentLang}`);
+            }
+          }
+        });
+      });
+    </script>
   </body>
 </html>
