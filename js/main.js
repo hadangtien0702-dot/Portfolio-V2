@@ -14,6 +14,7 @@ window.addEventListener('DOMContentLoaded', async () => {
 
   // Step 2: Init nav (sections now exist in DOM)
   initNav();                  // defined in nav.js
+  initMobileNav();            // defined in nav.js — hamburger for mobile
 
   // Step 3: Init UI effects (cursor, header, back-to-top)
   initCursor();               // defined in cursor.js
