@@ -25,13 +25,14 @@
 
       async function init() {
         await loadComponent('header-root', 'components/header.html');
-        await Promise.all([
-          loadComponent('main-root', 'components/hero.html'),
-          loadComponent('main-root', 'components/case-study.html'),
-          loadComponent('main-root', 'components/growth-timeline.html'),
-          loadComponent('main-root', 'components/video-system.html'),
-          loadComponent('main-root', 'components/creative-works.html'),
-        ]);
+
+        // Load sections in strict order: 1 → 2 → 3 → 4 → 5
+        await loadComponent('main-root', 'components/hero.html');
+        await loadComponent('main-root', 'components/case-study.html');
+        await loadComponent('main-root', 'components/growth-timeline.html');
+        await loadComponent('main-root', 'components/video-system.html');
+        await loadComponent('main-root', 'components/creative-works.html');
+
         await loadComponent('footer-root', 'components/footer.html');
 
         // Smooth scroll for nav links
