@@ -8,6 +8,9 @@
     <meta name="description" content="My Personal Portfolio - A modern and sophisticated website design." />
   </head>
   <body>
+    <!-- Interactive grid background -->
+    <div class="grid-bg" id="grid-bg"></div>
+
     <!-- Custom cursor -->
     <div class="cursor-dot" id="cursor-dot"></div>
 
@@ -20,10 +23,11 @@
     <main id="main-root"></main>
     <div id="footer-root"></div>
 
-    <!-- JS modules (order matters: each file depends on the one above it) -->
-    <script src="js/loader.js"></script>   <!-- loadAllComponents() -->
-    <script src="js/nav.js"></script>       <!-- initNav() -->
-    <script src="js/cursor.js"></script>    <!-- initCursor(), initBackToTop(), initScrollEffects() -->
-    <script src="js/main.js"></script>      <!-- entry point: calls all of the above -->
+    <!-- JS modules (order matters) -->
+    <script src="js/loader.js"></script>
+    <script src="js/nav.js"></script>
+    <script src="js/cursor.js"></script>
+    <script src="js/effects.js"></script>   <!-- grid bg, marquee -->
+    <script src="js/main.js"></script>
   </body>
 </html>

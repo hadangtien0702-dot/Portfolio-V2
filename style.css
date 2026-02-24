@@ -214,8 +214,6 @@ header.hidden {
 }
 
 /* ══════════════════════════════════════════
-   DOCK NAV (bottom pill — slides up on scroll)
-/* ══════════════════════════════════════════
    DOCK NAV — Icon + Tooltip style
 ══════════════════════════════════════════ */
 .dock {
@@ -849,4 +847,123 @@ footer {
 @media (max-width: 480px) {
   .hero-title { font-size: clamp(2.4rem, 13vw, 3.5rem); }
   header { padding: 1.2rem 5%; }
+}
+
+/* ════════════════════════════════════════
+   INTERACTIVE GRID BACKGROUND
+   JS updates --mx / --my on mousemove
+════════════════════════════════════════ */
+.grid-bg {
+  --mx: 50%;
+  --my: 50%;
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  /* Grid lines */
+  background-image:
+    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  /* Mouse glow — radial highlight that follows cursor */
+  mask-image: radial-gradient(
+    ellipse 60% 60% at var(--mx) var(--my),
+    black 0%,
+    transparent 100%
+  );
+  -webkit-mask-image: radial-gradient(
+    ellipse 60% 60% at var(--mx) var(--my),
+    black 0%,
+    transparent 100%
+  );
+}
+
+/* Subtle overall grid fade on body (always visible, dimmer) */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+/* Make sure page content sits above the grid */
+header, .dock, #cursor-dot, #back-to-top, #main-root, #header-root, #footer-root {
+  position: relative;
+  z-index: 1;
+}
+
+/* ════════════════════════════════════════
+   MARQUEE TICKER
+════════════════════════════════════════ */
+.marquee-wrap {
+  overflow: hidden;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--background-color);
+  padding: 1rem 0;
+  position: relative;
+  z-index: 1;
+}
+
+.marquee-wrap::before,
+.marquee-wrap::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 120px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.marquee-wrap::before {
+  left: 0;
+  background: linear-gradient(to right, var(--background-color), transparent);
+}
+
+.marquee-wrap::after {
+  right: 0;
+  background: linear-gradient(to left, var(--background-color), transparent);
+}
+
+.marquee-track {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  width: max-content;
+  animation: marquee-scroll 28s linear infinite;
+}
+
+.marquee-wrap:hover .marquee-track {
+  animation-play-state: paused; /* Pause on hover */
+}
+
+.marquee-item {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.35);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  white-space: nowrap;
+  transition: color 0.3s ease;
+}
+
+.marquee-item:hover { color: var(--accent-color); }
+
+.marquee-sep {
+  color: var(--accent-color);
+  opacity: 0.4;
+  font-size: 0.5rem;
+  flex-shrink: 0;
+}
+
+@keyframes marquee-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); } /* Move exactly half = 1 full set */
 }
