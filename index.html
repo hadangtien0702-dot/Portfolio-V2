@@ -57,6 +57,14 @@
           });
         }, { threshold: 0.4 });
         sections.forEach(s => observer.observe(s));
+
+        // Sticky header on scroll
+        window.addEventListener('scroll', () => {
+          const header = document.querySelector('header');
+          if (header) {
+            header.classList.toggle('scrolled', window.scrollY > 30);
+          }
+        });
       }
 
       window.addEventListener('DOMContentLoaded', init);
