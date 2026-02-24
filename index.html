@@ -20,59 +20,10 @@
     <main id="main-root"></main>
     <div id="footer-root"></div>
 
-    <script>
-      async function loadComponent(id, path) {
-        try {
-          const res = await fetch(path);
-          const html = await res.text();
-          document.getElementById(id).insertAdjacentHTML('beforeend', html);
-        } catch (e) {
-          console.error(`Error loading ${path}:`, e);
-        }
-      }
-
-      async function init() {
-        await loadComponent('header-root', 'components/header.html');
-
-        // Load sections in strict order: 1 → 2 → 3 → 4 → 5
-        await loadComponent('main-root', 'components/hero.html');
-        await loadComponent('main-root', 'components/case-study.html');
-        await loadComponent('main-root', 'components/growth-timeline.html');
-        await loadComponent('main-root', 'components/video-system.html');
-        await loadComponent('main-root', 'components/creative-works.html');
-
-        await loadComponent('footer-root', 'components/footer.html');
-
-        // Smooth scroll for nav links
-        document.querySelectorAll('.nav-link').forEach(link => {
-          link.addEventListener('click', e => {
-            e.preventDefault();
-            const target = document.querySelector(link.getAttribute('href'));
-            if (target) target.scrollIntoView({ behavior: 'smooth' });
-          });
-        });
-
-        // Active nav highlight on scroll
-        const sections = document.querySelectorAll('section[id]');
-        const navLinks = document.querySelectorAll('.nav-link');
-        const observer = new IntersectionObserver(entries => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting) {
-              navLinks.forEach(link => link.classList.remove('active'));
-              const active = document.querySelector(`.nav-link[href="#${entry.target.id}"]`);
-              if (active) active.classList.add('active');
-            }
-          });
-        }, { threshold: 0.4 });
-        sections.forEach(s => observer.observe(s));
-
-        // Load cursor & UI script after all components are ready
-        const cursorScript = document.createElement('script');
-        cursorScript.src = 'js/cursor.js';
-        document.body.appendChild(cursorScript);
-      }
-
-      window.addEventListener('DOMContentLoaded', init);
-    </script>
+    <!-- JS modules (order matters: each file depends on the one above it) -->
+    <script src="js/loader.js"></script>   <!-- loadAllComponents() -->
+    <script src="js/nav.js"></script>       <!-- initNav() -->
+    <script src="js/cursor.js"></script>    <!-- initCursor(), initBackToTop(), initScrollEffects() -->
+    <script src="js/main.js"></script>      <!-- entry point: calls all of the above -->
   </body>
 </html>
