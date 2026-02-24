@@ -202,27 +202,30 @@ header {
     width 0.5s cubic-bezier(0.4, 0, 0.2, 1),
     left 0.5s cubic-bezier(0.4, 0, 0.2, 1),
     top 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+    bottom 0.5s cubic-bezier(0.4, 0, 0.2, 1),
     padding 0.4s ease,
     background 0.4s ease,
     border-radius 0.5s ease,
     box-shadow 0.4s ease;
 }
 
-/* ── Header: docked (floating pill after scroll) ── */
+/* ── Header: docked (floating pill at the BOTTOM) ── */
 header.docked {
   width: auto;
+  top: auto;
+  bottom: 2rem;
   left: 50%;
   transform: translateX(-50%);
-  top: 1rem;
   padding: 0.5rem 1.5rem;
-  background: rgba(10, 10, 10, 0.8);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  background: rgba(10, 10, 10, 0.85);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
   border-radius: 50px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   box-shadow:
-    0 8px 32px rgba(0, 0, 0, 0.4),
-    0 0 0 1px rgba(255, 255, 255, 0.04);
+    0 8px 32px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.04),
+    0 -2px 12px rgba(237, 120, 66, 0.08);
 }
 
 /* In docked mode: hide logo, compress nav */
@@ -613,12 +616,13 @@ footer {
   nav ul { display: none; }
   nav ul.open { display: flex; flex-direction: column; gap: 0; }
 
-  /* On mobile, disable pill dock — revert to full-width sticky */
+  /* On mobile, disable pill dock — revert to full-width sticky at top */
   header.docked {
     width: 100%;
     left: 0;
     transform: none;
     top: 0;
+    bottom: auto;
     padding: 1rem 5%;
     border-radius: 0;
   }
