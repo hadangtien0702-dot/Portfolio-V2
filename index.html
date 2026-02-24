@@ -1,85 +1,32 @@
 <!doctype html>
-<html lang="vi">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Portfolio V2 | Modern Design</title>
     <link rel="stylesheet" href="style.css" />
-    <meta
-      id="meta-desc"
-      name="description"
-      content="Portfolio cá nhân của tôi - Một trang web được thiết kế hiện đại và tinh tế."
-      data-en="My Personal Portfolio - A modern and sophisticated website design."
-      data-vi="Portfolio cá nhân của tôi - Một trang web được thiết kế hiện đại và tinh tế."
-    />
+    <meta name="description" content="My Personal Portfolio - A modern and sophisticated website design." />
   </head>
   <body>
-    <header>
-      <nav>
-        <div class="logo">Hype On! <span style="font-weight: 400; opacity: 0.6;">Media</span></div>
-        <ul>
-          <li><a href="#home" data-en="Home" data-vi="Trang chủ">Home</a></li>
-          <li><a href="#about" data-en="About" data-vi="Giới thiệu">About</a></li>
-          <li><a href="#projects" data-en="Projects" data-vi="Dự án">Projects</a></li>
-          <li><a href="#contact" data-en="Contact" data-vi="Liên hệ">Contact</a></li>
-        </ul>
-        <div class="header-actions">
-           <div class="lang-switch">
-             <button id="lang-btn">EN</button>
-           </div>
-           <button class="cta cta-small" data-en="Get Your Free Audit" data-vi="Nhận kiểm tra miễn phí">Get Your Free Audit</button>
-        </div>
-      </nav>
-    </header>
-
-    <main>
-      <section id="home" class="hero">
-        <h1 data-en="WE'VE SCALED CHANNELS TO $2M+ YOURS IS NEXT" data-vi="CHÚNG TÔI ĐÃ GIÚP CÁC KÊNH ĐẠT $2M+ KÊNH CỦA BẠN SẼ LÀ TIẾP THEO">
-          WE'VE SCALED CHANNELS TO $2M+<br>YOURS IS NEXT
-        </h1>
-        <p data-en="For professionals ready to dominate their niche." data-vi="Dành cho các chuyên gia đã sẵn sàng thống lĩnh thị trường của mình.">For professionals ready to dominate their niche.</p>
-        <button class="cta" data-en="Start Now" data-vi="Bắt đầu ngay">Start Now</button>
-      </section>
-
-      <div class="topic-list">
-        <div class="topic-item">Real Estate</div>
-        <div class="topic-item">Lifestyle & Influencers</div>
-        <div class="topic-item">Kids Content</div>
-        <div class="topic-item">Education</div>
-        <div class="topic-item">Business & Finance</div>
-      </div>
-    </main>
-
-    <footer>
-      <p>&copy; 2024 Portfolio V2. <span data-en="Designed by Antigravity." data-vi="Thiết kế bởi Antigravity.">Thiết kế bởi Antigravity.</span></p>
-    </footer>
+    <div id="header-root"></div>
+    <main id="main-root"></main>
+    <div id="footer-root"></div>
 
     <script>
-      const langBtn = document.getElementById('lang-btn');
-      let currentLang = 'vi';
+      async function loadComponent(id, path) {
+        try {
+          const response = await fetch(path);
+          const data = await response.text();
+          document.getElementById(id).innerHTML = data;
+        } catch (error) {
+          console.error(`Error loading ${path}:`, error);
+        }
+      }
 
-      langBtn.addEventListener('click', () => {
-        currentLang = currentLang === 'vi' ? 'en' : 'vi';
-        document.documentElement.lang = currentLang;
-        langBtn.textContent = currentLang === 'vi' ? 'EN' : 'VI';
-
-        document.querySelectorAll('[data-en]').forEach(el => {
-          if (el.tagName === 'META') {
-            el.content = el.getAttribute(`data-${currentLang}`);
-          } else if (el.classList.contains('highlight')) {
-             // Handle highlight if needed, or just keep it simple
-          } else {
-            // Check if element has a span with highlight to preserve structure
-            const highlight = el.querySelector('.highlight');
-            if (highlight) {
-                const fullText = el.getAttribute(`data-${currentLang}`);
-                const highlightText = "Portfolio V2"; // Fixed for this specific case
-                el.innerHTML = fullText.replace(highlightText, `<span class="highlight">${highlightText}</span>`);
-            } else {
-                el.textContent = el.getAttribute(`data-${currentLang}`);
-            }
-          }
-        });
+      window.addEventListener('DOMContentLoaded', () => {
+        loadComponent('header-root', 'components/header.html');
+        loadComponent('main-root', 'components/hero.html');
+        loadComponent('footer-root', 'components/footer.html');
       });
     </script>
   </body>
