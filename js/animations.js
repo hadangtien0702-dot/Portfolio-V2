@@ -3,6 +3,10 @@
  * Scroll-triggered entrance animations using IntersectionObserver.
  * Hero section gets staggered load animation on DOMContentLoaded.
  * All animations use only transform + opacity (GPU-accelerated).
+ *
+ * PERFORMANCE:
+ * - initSectionReveal: fire-once (unobserve after visible) — no toggle
+ *   on scroll-up to avoid continuous repaints.
  */
 
 /* ─────────────────────────────────────────
@@ -31,7 +35,6 @@ function initHeroAnimation() {
    SCROLL: fade-up entrance for sections
 ───────────────────────────────────────── */
 function initScrollAnimations() {
-  // Elements to watch — add anim-ready class to hide initially
   const selectors = [
     '.section-page h2',
     '.section-page p',
@@ -47,7 +50,7 @@ function initScrollAnimations() {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('anim-in');
-        observer.unobserve(entry.target); // fire once
+        observer.unobserve(entry.target); // fire once — no re-trigger
       }
     });
   }, {
@@ -60,13 +63,18 @@ function initScrollAnimations() {
 
 /* ─────────────────────────────────────────
    SECTION REVEAL: entire sections fade in
+   Fire-once: unobserve after visible to
+   prevent continuous repaint on scroll.
 ───────────────────────────────────────── */
 function initSectionReveal() {
   const sections = document.querySelectorAll('section[id]:not(#hero)');
 
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
-      entry.target.classList.toggle('section-visible', entry.isIntersecting);
+      if (entry.isIntersecting) {
+        entry.target.classList.add('section-visible');
+        observer.unobserve(entry.target); // fire once, no toggle
+      }
     });
   }, { threshold: 0.08 });
 

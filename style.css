@@ -72,6 +72,7 @@
 /* ── Custom Cursor ── */
 .cursor-dot {
   position: fixed;
+  /* Positioned via JS transform: translate(x,y) — GPU composited, zero layout cost */
   top: 0;
   left: 0;
   width: 36px;
@@ -80,8 +81,9 @@
   border-radius: 50%;
   pointer-events: none;
   z-index: 9999;
-  transform: translate(-50%, -50%);
-  transition: opacity 0.3s ease, transform 0.15s ease, box-shadow 0.3s ease;
+  /* Base transform identity; JS overrides with translate(cx, cy) */
+  transform: translate(-100px, -100px);
+  transition: opacity 0.3s ease, box-shadow 0.3s ease;
   opacity: 0;
   mix-blend-mode: normal;
 }
@@ -111,7 +113,8 @@
 }
 
 .cursor-dot.clicking {
-  transform: translate(-50%, -50%) scale(0.7);
+  /* JS sets translate; we only scale on top of it via a CSS var trick — simpler: just shrink via filter */
+  filter: brightness(1.4);
   background: rgba(193, 39, 45, 0.15);
 }
 
@@ -492,6 +495,8 @@ nav ul li a.active::after {
   padding: 8rem 8% 6rem;
   background: var(--background-color);
   border-top: 1px solid rgba(255, 255, 255, 0.06);
+  /* Isolate repaint to this element — scroll animations don't trigger full-page repaints */
+  contain: layout style paint;
 }
 
 .section-label {
@@ -937,18 +942,22 @@ footer {
   pointer-events: none;
   /* background-image + background-size set dynamically by effects.js */
   background-repeat: repeat;
-  /* Mouse glow — radial highlight that follows cursor */
-  mask-image: radial-gradient(
-    ellipse 65% 65% at var(--mx) var(--my),
-    black 0%,
-    transparent 100%
-  );
-  -webkit-mask-image: radial-gradient(
-    ellipse 65% 65% at var(--mx) var(--my),
-    black 0%,
+  /* Grid always fully visible — no mask */
+}
+
+/* Mouse glow: a subtle radial spotlight that follows cursor */
+.grid-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse 50% 50% at var(--mx) var(--my),
+    rgba(193, 39, 45, 0.08) 0%,
     transparent 100%
   );
 }
+
 
 /* Subtle always-visible layer: tiny dots for depth */
 body::before {

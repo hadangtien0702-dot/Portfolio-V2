@@ -1,7 +1,8 @@
 /**
  * loader.js
  * Loads HTML component files into their root containers.
- * Order is sequential to guarantee correct render order.
+ * Sections load in PARALLEL (Promise.all) for faster page display.
+ * Only the header is awaited first to ensure it renders before content.
  */
 
 async function loadComponent(id, path) {
@@ -16,14 +17,16 @@ async function loadComponent(id, path) {
 }
 
 async function loadAllComponents() {
+  // Header first — must render before content
   await loadComponent('header-root', 'components/header.html');
 
-  // Sections load in strict order: 1 → 2 → 3 → 4 → 5
-  await loadComponent('main-root', 'components/hero.html');
-  await loadComponent('main-root', 'components/case-study.html');
-  await loadComponent('main-root', 'components/growth-timeline.html');
-  await loadComponent('main-root', 'components/video-system.html');
-  await loadComponent('main-root', 'components/creative-works.html');
-
-  await loadComponent('footer-root', 'components/footer.html');
+  // Load all sections in PARALLEL → much faster page display
+  await Promise.all([
+    loadComponent('main-root', 'components/hero.html'),
+    loadComponent('main-root', 'components/case-study.html'),
+    loadComponent('main-root', 'components/growth-timeline.html'),
+    loadComponent('main-root', 'components/video-system.html'),
+    loadComponent('main-root', 'components/creative-works.html'),
+    loadComponent('footer-root', 'components/footer.html'),
+  ]);
 }
