@@ -615,7 +615,7 @@ nav ul li a.active::after {
   object-position: center top;
   display: block;
   background: transparent;
-  mix-blend-mode: normal;
+  mix-blend-mode: multiply;
 }
 
 
