@@ -543,6 +543,7 @@ nav ul li a.active::after {
   background-color: #000;
   position: relative;
   overflow: hidden;
+  isolation: isolate;
 }
 
 /* Crimson gradient overlay on top of BG image */
