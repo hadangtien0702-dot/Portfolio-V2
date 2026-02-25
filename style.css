@@ -923,35 +923,30 @@ footer {
   inset: 0;
   z-index: -1;           /* Below everything */
   pointer-events: none;
-  /* Grid lines */
-  background-image:
-    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-  background-size: 60px 60px;
+  /* background-image + background-size set dynamically by effects.js */
+  background-repeat: repeat;
   /* Mouse glow — radial highlight that follows cursor */
   mask-image: radial-gradient(
-    ellipse 60% 60% at var(--mx) var(--my),
+    ellipse 65% 65% at var(--mx) var(--my),
     black 0%,
     transparent 100%
   );
   -webkit-mask-image: radial-gradient(
-    ellipse 60% 60% at var(--mx) var(--my),
+    ellipse 65% 65% at var(--mx) var(--my),
     black 0%,
     transparent 100%
   );
 }
 
-/* Subtle overall grid (always visible, very dim) */
+/* Subtle always-visible layer: tiny dots for depth */
 body::before {
   content: '';
   position: fixed;
   inset: 0;
-  z-index: -1;           /* Below all content */
+  z-index: -2;           /* One level below .grid-bg */
   pointer-events: none;
-  background-image:
-    linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
-  background-size: 60px 60px;
+  background-image: radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px);
+  background-size: 28px 28px;
 }
 
 /* ════════════════════════════════════════
