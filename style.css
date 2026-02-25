@@ -56,14 +56,14 @@
 }
 
 :root {
-  --primary-color: #ed7842;
-  --primary-light: #ec663c;
-  --primary-dark: #d14535;
-  --primary-deep: #642325;
+  --primary-color: #C1272D;
+  --primary-light: #D63027;
+  --primary-dark: #8B1A1A;
+  --primary-deep: #4A0E0E;
   --background-color: #000000;
   --text-color: #ffffff;
   --secondary-bg: #0a0a0a;
-  --accent-color: #ed7842;
+  --accent-color: #C1272D;
   --font-heading: 'Clash Display', sans-serif;
   --font-body: 'Inter Display', sans-serif;
   --gradient-main: radial-gradient(circle at 70% 30%, var(--primary-color) 0%, var(--primary-deep) 100%);
@@ -89,30 +89,30 @@
 .cursor-dot.visible {
   opacity: 1;
   box-shadow:
-    0 0 8px 2px rgba(237, 120, 66, 0.6),
-    0 0 20px 6px rgba(237, 120, 66, 0.25),
-    0 0 40px 12px rgba(237, 120, 66, 0.1);
+    0 0 8px 2px rgba(193, 39, 45, 0.6),
+    0 0 20px 6px rgba(193, 39, 45, 0.25),
+    0 0 40px 12px rgba(193, 39, 45, 0.1);
   animation: cursor-pulse 1.5s ease-in-out infinite;
 }
 
 @keyframes cursor-pulse {
   0%, 100% {
     box-shadow:
-      0 0 8px 2px rgba(237, 120, 66, 0.6),
-      0 0 20px 6px rgba(237, 120, 66, 0.25),
-      0 0 40px 12px rgba(237, 120, 66, 0.1);
+      0 0 8px 2px rgba(193, 39, 45, 0.6),
+      0 0 20px 6px rgba(193, 39, 45, 0.25),
+      0 0 40px 12px rgba(193, 39, 45, 0.1);
   }
   50% {
     box-shadow:
-      0 0 12px 4px rgba(237, 120, 66, 0.8),
-      0 0 30px 10px rgba(237, 120, 66, 0.35),
-      0 0 55px 18px rgba(237, 120, 66, 0.15);
+      0 0 12px 4px rgba(193, 39, 45, 0.8),
+      0 0 30px 10px rgba(193, 39, 45, 0.35),
+      0 0 55px 18px rgba(193, 39, 45, 0.15);
   }
 }
 
 .cursor-dot.clicking {
   transform: translate(-50%, -50%) scale(0.7);
-  background: rgba(237, 120, 66, 0.15);
+  background: rgba(193, 39, 45, 0.15);
 }
 
 body.is-scrolling {
@@ -138,7 +138,7 @@ body.is-scrolling {
   transform: translateY(20px);
   transition: opacity 0.4s ease, transform 0.4s ease, box-shadow 0.3s ease;
   pointer-events: none;
-  box-shadow: 0 4px 20px rgba(237, 120, 66, 0.3);
+  box-shadow: 0 4px 20px rgba(193, 39, 45, 0.3);
 }
 
 #back-to-top.visible {
@@ -148,7 +148,7 @@ body.is-scrolling {
 }
 
 #back-to-top:hover {
-  box-shadow: 0 8px 30px rgba(237, 120, 66, 0.5);
+  box-shadow: 0 8px 30px rgba(193, 39, 45, 0.5);
   transform: translateY(-3px);
 }
 
@@ -306,7 +306,7 @@ header.hidden {
   box-shadow:
     0 10px 40px rgba(0, 0, 0, 0.5),
     0 0 0 1px rgba(255, 255, 255, 0.04),
-    0 -2px 20px rgba(237, 120, 66, 0.07);
+    0 -2px 20px rgba(193, 39, 45, 0.07);
 }
 
 /* Each dock item: icon button */
@@ -348,7 +348,7 @@ header.hidden {
 /* Active: orange tint + icon highlight */
 .dock-item.active {
   color: var(--accent-color);
-  background: rgba(237, 120, 66, 0.12);
+  background: rgba(193, 39, 45, 0.12);
 }
 
 /* Active dot under icon */
@@ -538,7 +538,7 @@ nav ul li a.active::after {
   align-items: end;
   padding: 0;
   background:
-    radial-gradient(ellipse at 55% 50%, rgba(237, 120, 66, 0.5) 0%, rgba(100, 35, 37, 0.3) 40%, rgba(0,0,0,1) 75%);
+    radial-gradient(ellipse at 55% 50%, rgba(193, 39, 45, 0.5) 0%, rgba(74, 14, 14, 0.3) 40%, rgba(0,0,0,1) 75%);
   position: relative;
   overflow: hidden;
 }
@@ -599,7 +599,7 @@ nav ul li a.active::after {
   object-position: top center;
   display: block;
   /* Placeholder gradient when no image */
-  background: linear-gradient(to bottom, rgba(237,120,66,0.2), rgba(0,0,0,0.8));
+  background: linear-gradient(to bottom, rgba(193,39,45,0.2), rgba(0,0,0,0.8));
 }
 
 /* Blend portrait into bg */
@@ -621,7 +621,7 @@ nav ul li a.active::after {
   position: absolute;
   inset: 0;
   /* Warm orange tint */
-  background: rgba(180, 60, 20, 0.25);
+  background: rgba(139, 26, 26, 0.25);
   mix-blend-mode: multiply;
   z-index: 2;
 }
@@ -688,7 +688,7 @@ nav ul li a.active::after {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  background: linear-gradient(to right, #ed7842, #d14535);
+  background: linear-gradient(to right, #C1272D, #8B1A1A);
   color: white;
   border: none;
   border-radius: 50px;
@@ -697,7 +697,7 @@ nav ul li a.active::after {
   align-items: center;
   gap: 10px;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 8px 20px rgba(209, 69, 53, 0.3);
+  box-shadow: 0 8px 20px rgba(193, 39, 45, 0.3);
   align-self: flex-start;
 }
 
@@ -716,7 +716,7 @@ nav ul li a.active::after {
 
 .cta:hover {
   transform: translateY(-3px) scale(1.02);
-  box-shadow: 0 14px 30px rgba(209, 69, 53, 0.45);
+  box-shadow: 0 14px 30px rgba(193, 39, 45, 0.45);
 }
 
 /* ── Topic List ── */
