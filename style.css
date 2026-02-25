@@ -543,7 +543,6 @@ nav ul li a.active::after {
   background-color: #000;
   position: relative;
   overflow: hidden;
-  isolation: isolate;
 }
 
 /* Crimson gradient overlay on top of BG image */
@@ -616,7 +615,7 @@ nav ul li a.active::after {
   object-position: center top;
   display: block;
   background: transparent;
-  mix-blend-mode: multiply;
+  /* No blend — cutout PNG already has transparent background */
 }
 
 
