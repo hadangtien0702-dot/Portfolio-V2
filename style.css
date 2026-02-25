@@ -540,7 +540,7 @@ nav ul li a.active::after {
   min-height: 100vh;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  align-items: end;
+  align-items: stretch;
   padding: 0;
   background-image: url('assets/images/bg.jpg');
   background-size: cover;
@@ -565,7 +565,7 @@ nav ul li a.active::after {
 .hero-left {
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: center;
   padding: 8rem 4% 5rem 8%;
   z-index: 2;
   position: relative;
@@ -647,7 +647,7 @@ nav ul li a.active::after {
 .hero-right {
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: center;
   padding: 8rem 8% 5rem 4%;
   z-index: 2;
   position: relative;
