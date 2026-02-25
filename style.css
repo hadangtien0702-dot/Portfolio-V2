@@ -537,9 +537,10 @@ nav ul li a.active::after {
   grid-template-columns: 1fr 1fr 1fr;
   align-items: end;
   padding: 0;
-  /* BG image set inline on element; overlay gradient on top */
+  background-image: url('assets/images/bg.jpg');
+  background-size: cover;
+  background-position: center top;
   background-color: #000;
-  background-blend-mode: overlay;
   position: relative;
   overflow: hidden;
 }
