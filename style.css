@@ -537,10 +537,22 @@ nav ul li a.active::after {
   grid-template-columns: 1fr 1fr 1fr;
   align-items: end;
   padding: 0;
-  background:
-    radial-gradient(ellipse at 55% 50%, rgba(193, 39, 45, 0.5) 0%, rgba(74, 14, 14, 0.3) 40%, rgba(0,0,0,1) 75%);
+  /* BG image set inline on element; overlay gradient on top */
+  background-color: #000;
+  background-blend-mode: overlay;
   position: relative;
   overflow: hidden;
+}
+
+/* Crimson gradient overlay on top of BG image */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 60% 50%, rgba(193, 39, 45, 0.35) 0%, rgba(74, 14, 14, 0.2) 50%, rgba(0,0,0,0.55) 100%);
+  z-index: 0;
+  pointer-events: none;
 }
 
 /* Left column */
